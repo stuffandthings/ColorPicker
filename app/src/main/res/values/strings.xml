@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Color Picker</string>
+    <string name="instructions">Select the desired color centered in the circle.</string>
+    <string name="colors">Past Colors</string>
+    <string name="exit">Exit</string>
+
+
+</resources>
