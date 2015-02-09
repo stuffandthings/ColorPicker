@@ -34,10 +34,15 @@ public class Viewer extends Activity {
         // Create an instance of Camera
         mCamera = getCameraInstance();
 
-        // Create our Preview view and set it as the content of our activity.
+        /*
+         Create the preview and add the live camera preview to this view.
+         Then add the cross-hair so it is displayed "on top".
+         */
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
+        //TODO: crosshair view added on top of the camera view
+        //preview.addView(CROSSHAIRPREVIEWHERE);
 
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
@@ -45,7 +50,11 @@ public class Viewer extends Activity {
                     @Override
                     public void onClick(View v) {
                         // get an image from the camera
-                        mCamera.takePicture(null, null, mPicture);
+                        //mCamera.takePicture(null, null, mPicture);
+
+                        /*
+                        TODO: buttonpress -> update color box and show RGB & hex of the color
+                        */
                     }
                 }
         );
