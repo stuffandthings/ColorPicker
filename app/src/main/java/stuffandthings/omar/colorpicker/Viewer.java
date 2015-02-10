@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ import java.util.Date;
 public class Viewer extends Activity {
     private static final String TAG = "Tag";
     public static final int MEDIA_TYPE_IMAGE = 1;
+    private ImageView crosshair;
     private Camera mCamera;
     private CameraPreview mPreview;
 
@@ -42,7 +44,9 @@ public class Viewer extends Activity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
         //TODO: crosshair view added on top of the camera view
-        //preview.addView(CROSSHAIRPREVIEWHERE);
+        crosshair = (ImageView) findViewById(R.id.imageView1);
+        crosshair.setImageResource(R.drawable.crosshair);
+        preview.addView(crosshair);
 
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
