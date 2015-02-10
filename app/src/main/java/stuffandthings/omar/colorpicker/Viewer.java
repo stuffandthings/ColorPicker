@@ -24,6 +24,7 @@ import java.util.Date;
 public class Viewer extends Activity {
     private static final String TAG = "Tag";
     public static final int MEDIA_TYPE_IMAGE = 1;
+
     private ImageView crosshair;
     private Camera mCamera;
     private CameraPreview mPreview;
@@ -36,17 +37,16 @@ public class Viewer extends Activity {
         // Create an instance of Camera
         mCamera = getCameraInstance();
 
-        /*
-         Create the preview and add the live camera preview to this view.
-         Then add the cross-hair so it is displayed "on top".
-         */
+        // Create the preview and add the live camera preview to this view.
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
-        //TODO: crosshair view added on top of the camera view
+
+        // Create the crosshair to overlay on top of the camera preview.
         crosshair = (ImageView) findViewById(R.id.imageView1);
         crosshair.setImageResource(R.drawable.crosshair);
-        preview.addView(crosshair);
+
+        //preview.addView(crosshair); not required?
 
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
@@ -54,10 +54,11 @@ public class Viewer extends Activity {
                     @Override
                     public void onClick(View v) {
                         // get an image from the camera
-                        //mCamera.takePicture(null, null, mPicture);
+                        mCamera.takePicture(null, null, mPicture);
 
                         /*
                         TODO: buttonpress -> update color box and show RGB & hex of the color
+                              Also log the color (i.e. save a file containing RGB values and hex)
                         */
                     }
                 }
@@ -99,13 +100,10 @@ public class Viewer extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
-            case R.id.colors:
-                //TODO: colors menu item
-            case R.id.exit:
-                //TODO: exit app
-            default: break;
+        if (item.getItemId() == R.id.colors) {
+            //TODO: open past colors screen
         }
+
         return super.onOptionsItemSelected(item);
     }
 
