@@ -46,8 +46,6 @@ public class Viewer extends Activity {
         crosshair = (ImageView) findViewById(R.id.imageView1);
         crosshair.setImageResource(R.drawable.crosshair);
 
-        //preview.addView(crosshair); not required?
-
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
