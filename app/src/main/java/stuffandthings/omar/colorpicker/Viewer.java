@@ -36,6 +36,11 @@ public class Viewer extends Activity {
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
+        mCamera.setDisplayOrientation(90);
+        //set camera to continually auto-focus
+        Camera.Parameters params = mCamera.getParameters();
+        params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        mCamera.setParameters(params);
 
         // Create the preview and add the live camera preview to this view.
         mPreview = new CameraPreview(this, mCamera);
@@ -45,6 +50,8 @@ public class Viewer extends Activity {
         // Create the crosshair to overlay on top of the camera preview.
         crosshair = (ImageView) findViewById(R.id.imageView1);
         crosshair.setImageResource(R.drawable.crosshair);
+        mPreview.setZOrderOnTop(false);
+        crosshair.bringToFront();
 
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
@@ -94,6 +101,23 @@ public class Viewer extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        {
+            if (mCamera != null) {
+                mCamera.release();
+                mCamera = null;
+            }
+            super.onPause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        mCamera = getCameraInstance();
+        super.onResume();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -111,7 +135,7 @@ public class Viewer extends Activity {
             c = Camera.open(); // attempt to get a Camera instance
         }
         catch (Exception e){
-            // Camera is not available (in use or does not exist)
+            // Do something this this exception
         }
         return c; // returns null if camera is unavailable
     }
